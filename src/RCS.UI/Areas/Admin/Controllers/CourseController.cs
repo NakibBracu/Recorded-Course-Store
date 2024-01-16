@@ -93,7 +93,7 @@ namespace RCS.UI.Areas.Admin.Controllers
                    await model.UpdateCourseAsync();
                     TempData.Put<ResponseModel>("ResponseMessage", new ResponseModel
                     {
-                        Message = "Successfully added a new course.",
+                        Message = "Successfully Updated course details.",
                         Type = ResponseTypes.Success
                     });
                     return RedirectToAction("Index");
@@ -113,7 +113,7 @@ namespace RCS.UI.Areas.Admin.Controllers
 
                     TempData.Put<ResponseModel>("ResponseMessage", new ResponseModel
                     {
-                        Message = "There was a problem in creating course.",
+                        Message = "There was a problem in updating course.",
                         Type = ResponseTypes.Danger
                     });
                 }

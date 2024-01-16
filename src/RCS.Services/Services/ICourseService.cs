@@ -14,5 +14,7 @@ namespace RCS.Services.Services
 
         Task<(int total, int totalDisplay, IList<Course> records)> GetCoursesByPagingAsync(int pageIndex,
         int pageSize, string searchText, string orderby);
+
+        Task<IEnumerable<Course>> GetAll();
     }
 }

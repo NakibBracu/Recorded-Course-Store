@@ -17,6 +17,11 @@ namespace RCS.Services.Services
             _unitOfWork = unitOfWork;
         }
 
+        public async Task<IEnumerable<Course>> GetAll()
+        {
+           return  await _unitOfWork.Courses.GetAllAsync();
+        }
+
         public async Task<(int total, int totalDisplay, IList<Course> records)>
         GetCoursesByPagingAsync(int pageIndex, int pageSize, string searchText, string orderby)
         {
