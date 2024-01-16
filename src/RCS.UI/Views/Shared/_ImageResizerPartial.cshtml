@@ -1,0 +1,62 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<!-- Modal -->
+<div class="modal fade" id="imageCropModal" tabindex="-1" role="dialog" aria-labelledby="imageCropModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" id="imageCropModalLongTitle">Image Crop</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+
+                            <div class="image-crop-body" style="margin-top:1px;">
+                                <div class="card-body">
+                                    <div id="main-cropper"></div>
+                                    <div class="custom-file">
+                                        <input type="file" id="select" class="custom-file-input" value="Choose Image" accept="image/*">
+                                        <label class="custom-file-label" for="customFile">Choose Profile Image</label>
+                                    </div>
+                                    <div class="d-flex justify-content-between" style="margin-top: 10px;margin-bottom:10px">
+                                        <button id="btnrotate" name="btnrotate" class="btn btn-info px-5">Rotate</button>
+                                        <button id="btnupload" name="btnupload" class="btn btn-success px-5" data-dismiss="modal">Crop</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

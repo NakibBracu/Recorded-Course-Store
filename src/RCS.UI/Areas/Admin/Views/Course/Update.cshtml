@@ -1,0 +1,118 @@
+﻿@using RCS.Data.Enums
+@model CourseUpdateModel
+@{
+    ViewData["Title"] = "Update";
+}
+
+<link rel="stylesheet" href="~/AdminLTE/plugins/select2/css/select2.min.css">
+<link rel="stylesheet" href="~/AdminLTE/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+<link rel="stylesheet" href="~/lib/croppieFiles/croppie.css" />
+<style>
+    .croppie-container {
+        width: 100%;
+        height: 80%;
+    }
+
+    .image-input-container {
+        position: relative;
+        background-color: #f0ffff;
+        /* Background color of the container */
+        border: 2px solid #ccc;
+        /* Border style */
+        border-radius: 10px;
+        /* Rounded corners */
+        overflow: hidden;
+        /* Hide overflow content */
+        cursor: pointer;
+        /* Change cursor on hover */
+    }
+        /* Style for the background image */
+        .image-input-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Scale the image to cover the container */
+        }
+
+    input:invalid {
+        border: 2px dashed red;
+    }
+</style>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- left column -->
+        <div class="col-md-6">
+            <!-- general form elements -->
+            <div class="card card-warning">
+                <div class="card-header">
+                    <h3 class="card-title">Update Course</h3>
+                </div>
+                <!-- /.card-header -->
+                <!-- form start -->
+                <form role="form" asp-antiforgery="true" asp-action="Update"
+                      asp-area="Admin" asp-controller="Course" method="post" enctype="multipart/form-data">
+                    <input type="hidden" asp-for="Id" />
+                    <div class="card-body">
+                        <partial name="_ResponsePartial" />
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="Title"></label>
+                            <input type="text" class="form-control" asp-for="Title" placeholder="Enter title">
+                            <span asp-validation-for="Title" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Description"></label>
+                            <input type="text" class="form-control" asp-for="Description" placeholder="Course Description">
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+                        @*   <div class="form-group">
+                        <label asp-for="Image">Upload Image:</label>
+                        <input asp-for="Image" type="file" class="form-control-file" id="imageUpload" name="Image">
+                        <span asp-validation-for="Image" class="text-danger"></span>
+                        </div> *@
+                        <div class="form-group">
+                            <label for="Image">Choose A file </label>
+                            <input type="file" class="form-control" name="Image" />
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Price"></label>
+                            <input type="text" class="form-control" asp-for="Price" placeholder="Enter fees">
+                            <span asp-validation-for="Price" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="DifficultyLevel" class="control-label"></label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-star"></i></span>
+                                <select asp-for="DifficultyLevel" class="form-control">
+                                    <option value="">-- Select Gender --</option>
+                                    @foreach (var item in Html.GetEnumSelectList<DifficultyLevel>())
+                                    {
+                                        <option value="@item.Value">@item.Text</option>
+                                    }
+                                </select>
+                            </div>
+                            <span asp-validation-for="DifficultyLevel" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+            <!-- /.card -->
+
+        </div>
+        <!--/.col (left) -->
+    </div>
+    <!-- /.row -->
+</div><!-- /.container-fluid -->
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}
+
+
