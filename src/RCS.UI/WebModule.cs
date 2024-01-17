@@ -19,6 +19,8 @@ namespace RCS.UI
             builder.RegisterType<CourseListModel>().AsSelf();
             builder.RegisterType<FileService>().As<IFileService>()
                .InstancePerLifetimeScope();
+            builder.RegisterType<SessionService>().As<ISessionService>().InstancePerLifetimeScope();
+            builder.RegisterType<CartService>().As<ICartService>().InstancePerLifetimeScope();
             base.Load(builder);
         }
     }

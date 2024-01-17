@@ -3,7 +3,6 @@ using RCS.Data.Entities;
 using RCS.Data.Enums;
 using RCS.Data.UnitOfWorks;
 using System.Data;
-using System.Xml.Linq;
 
 namespace RCS.Services.Services
 {
@@ -19,7 +18,7 @@ namespace RCS.Services.Services
 
         public async Task<IEnumerable<Course>> GetAll()
         {
-           return  await _unitOfWork.Courses.GetAllAsync();
+            return await _unitOfWork.Courses.GetAllAsync();
         }
 
         public async Task<(int total, int totalDisplay, IList<Course> records)>
@@ -80,7 +79,7 @@ namespace RCS.Services.Services
             return course;
         }
 
-        public async Task UpdateCourseAsync(Guid id,string title, string description, string thumbnailImage, decimal price, DifficultyLevel difficultyLevel) 
+        public async Task UpdateCourseAsync(Guid id, string title, string description, string thumbnailImage, decimal price, DifficultyLevel difficultyLevel)
         {
             if (await _unitOfWork.Courses.IsDuplicateNameAsync(title, id))
             {

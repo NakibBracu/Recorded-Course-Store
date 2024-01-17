@@ -1,0 +1,15 @@
+﻿@using RCS.Data.Entities
+@{
+    ViewData["Title"] = "Checkout";
+}
+
+<h1>Checkout</h1>
+
+@model IEnumerable<CartLine>
+
+<!-- Display cart content, order details form, etc. -->
+
+<form id="orderForm" asp-action="PlaceOrder" asp-controller="Order" method="post">
+    <!-- Include order details fields, e.g., name, address, etc. -->
+    <input type="submit" class="btn btn-success" value="Place Order" />
+</form>

@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@inject IHttpContextAccessor _contextAccessor;
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/RCS.UI.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-kz9d5yGQFh9xNr9MCTG27ugfa5KmFR5FydPvvQkQVtz1r+0Oa2T8i8+DtnbQmS3Mu5L1RKesxjA3ax3HmzfIJw==" crossorigin="anonymous" />
     @await RenderSectionAsync("Styles", false)
 </head>
 <body>
@@ -25,6 +27,15 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="Index">
+                                Cart
+                                <span class="cart-icon">
+                                    <i class="fas fa-shopping-cart"></i>
+                                    <span>@(_contextAccessor.HttpContext.Session.GetInt32("TotalCourseInCart") ?? 0)</span>
+                                </span>
+                            </a>
                         </li>
                     </ul>
                 </div>

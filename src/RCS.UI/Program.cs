@@ -1,8 +1,10 @@
 using Autofac;
+using Autofac.Core;
 using Autofac.Extensions.DependencyInjection;
 using log4net;
 using RCS.Data.DataAccessServiceConfigurations;
 using RCS.Services;
+using RCS.Services.Services;
 using RCS.UI;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +19,14 @@ builder.Services.ConfigureDataAccessServices(connectionString)
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+//Enable Session
+builder.Services.AddSession();
+builder.Services.AddDistributedMemoryCache();
+
+//HttpContextAccessor added
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 //Log4net 
 builder.Logging.ClearProviders();
@@ -51,6 +61,8 @@ try
     app.UseRouting();
 
     app.UseAuthorization();
+
+    app.UseSession();
 
     app.MapControllerRoute(
     name: "areas",
