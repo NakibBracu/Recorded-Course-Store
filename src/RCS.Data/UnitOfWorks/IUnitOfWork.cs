@@ -11,6 +11,8 @@ namespace RCS.Data.UnitOfWorks
         Task Rollback();
 
         ICourseRepository Courses { get; }
+        IOrderRepository Orders { get; }
+        ICartLineRepository CartLines { get; }
 
     }
 }

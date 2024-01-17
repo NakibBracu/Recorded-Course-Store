@@ -8,13 +8,20 @@ namespace RCS.Data.UnitOfWorks
         private readonly ISession _session;
         private readonly ITransaction _transaction;
         private readonly ICourseRepository _courseRepository;
+        private readonly ICartLineRepository _cartLineRepository;
+        private readonly IOrderRepository _orderRepository;
 
         public UnitOfWork(ISession session,
-            ICourseRepository courseRepository)
+            ICourseRepository courseRepository,
+            IOrderRepository orderRepository,
+            ICartLineRepository cartLineRepository
+            )
         {
             _session = session;
             _transaction = _session.BeginTransaction();
             _courseRepository = courseRepository;
+            _orderRepository = orderRepository;
+            _cartLineRepository = cartLineRepository;
         }
         public async Task BeginTransaction()
         {
@@ -38,6 +45,8 @@ namespace RCS.Data.UnitOfWorks
         }
 
         public ICourseRepository Courses => _courseRepository;
+        public ICartLineRepository CartLines => _cartLineRepository;
+        public IOrderRepository Orders => _orderRepository;
 
     }
 }

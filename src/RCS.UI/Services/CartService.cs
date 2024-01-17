@@ -75,7 +75,7 @@ namespace RCS.UI.Services
 
         public Order CreateOrder(Order order)
         {
-            order.Lines = CartLines.ToList();
+          //  order.Lines = CartLines.ToList();
             // Additional order-related logic
             // Save the order and associated cart lines to the database
             // ...

@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Autofac;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using RCS.Data.Entities;
 using RCS.Services.Services;
+using RCS.UI.Areas.Admin.Models;
 using RCS.UI.Models;
 using RCS.UI.Services;
 using RCS.UI.Utilities;
+using System.Data;
 
 namespace RCS.UI.Controllers
 {
@@ -14,11 +17,19 @@ namespace RCS.UI.Controllers
         private readonly ICourseService _courseService;
         private readonly ICartService _cartService;
         private readonly IHttpContextAccessor _contextAccessor;
-        public OrderController(ICourseService courseService,ICartService cartService,IHttpContextAccessor contextAccessor)
+        ILifetimeScope _scope;
+        ILogger<OrderController> _logger;
+        public OrderController(
+            ICourseService courseService,ICartService cartService,
+            IHttpContextAccessor contextAccessor,ILifetimeScope scope,
+             ILogger<OrderController> logger
+            )
         {
             _courseService = courseService;
             _cartService = cartService;
             _contextAccessor = contextAccessor;
+            _scope = scope;
+            _logger = logger;
         }
 
         public async Task<IActionResult> AddToCart(Guid courseId)
@@ -95,34 +106,53 @@ namespace RCS.UI.Controllers
 
 
 
-        public IActionResult Checkout()
+        public async Task<IActionResult> Checkout()
         {
-            // Retrieve the cart content and pass it to the view
-            var cartLines = _cartService.GetCartLines();
-            return View(cartLines);
+            var model = _scope.Resolve<PlaceOrderModel>();
+            return View(model);
         }
 
-        [HttpPost]
-        public IActionResult PlaceOrder([FromBody] OrderDetailsModel orderDetails)
+        [HttpPost,ValidateAntiForgeryToken]
+        public async Task<IActionResult> Checkout(PlaceOrderModel model)
         {
-            // Retrieve the cart content
-            var cartLines = _cartService.GetCartLines();
-
-            // Validate order details and perform necessary logic
-            // ...
-
-            // Create an order
-            var order = new Order
+            model.ResolveDependency(_scope);
+            if (ModelState.IsValid)
             {
-                // Set order details based on the form submission and cart content
-                // ...
-            };
+                try
+                {
+                    var existingCourseIdsString = _contextAccessor.HttpContext.Session.GetString("CourseIds");
 
-            // Call CreateOrder method in CartService
-            var createdOrder = _cartService.CreateOrder(order);
+                    var existingCourseIds = JsonConvert.DeserializeObject<List<Guid>>(existingCourseIdsString);
+                    await model.addOrder(existingCourseIds);
+                    TempData.Put<ResponseModel>("ResponseMessage", new ResponseModel
+                    {
+                        Message = "Successfully added a new course.",
+                        Type = ResponseTypes.Success
+                    });
+                    return RedirectToAction("Index");
+                }
+                catch (DuplicateNameException ex)
+                {
+                    _logger.LogError(ex, ex.Message);
+                    TempData.Put<ResponseModel>("ResponseMessage", new ResponseModel
+                    {
+                        Message = ex.Message,
+                        Type = ResponseTypes.Danger
+                    });
+                }
+                catch (Exception e)
+                {
+                    _logger.LogError(e, "Server Error");
 
-            // Display a confirmation message or redirect to a thank-you page
-            return RedirectToAction("OrderConfirmation", new { orderId = createdOrder.Id });
+                    TempData.Put<ResponseModel>("ResponseMessage", new ResponseModel
+                    {
+                        Message = "There was a problem in creating course.",
+                        Type = ResponseTypes.Danger
+                    });
+                }
+            }
+
+            return View(model);
         }
 
     }

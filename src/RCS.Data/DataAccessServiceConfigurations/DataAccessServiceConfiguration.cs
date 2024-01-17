@@ -14,6 +14,8 @@ namespace RCS.Data.DataAccessServiceConfigurations
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddScoped<ICourseRepository, CourseRepository>();
+            services.AddScoped<ICartLineRepository, CartLineRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
 
             return services;
         }

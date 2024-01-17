@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using RCS.UI.Areas.Admin.Models;
+using RCS.UI.Models;
 using RCS.UI.Services;
 
 namespace RCS.UI
@@ -17,6 +18,7 @@ namespace RCS.UI
             builder.RegisterType<CourseCreateModel>().AsSelf();
             builder.RegisterType<CourseUpdateModel>().AsSelf();
             builder.RegisterType<CourseListModel>().AsSelf();
+            builder.RegisterType<PlaceOrderModel>().AsSelf();
             builder.RegisterType<FileService>().As<IFileService>()
                .InstancePerLifetimeScope();
             builder.RegisterType<SessionService>().As<ISessionService>().InstancePerLifetimeScope();
