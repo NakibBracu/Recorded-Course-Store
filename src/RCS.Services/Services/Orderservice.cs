@@ -1,4 +1,5 @@
 ﻿
+using Mapster;
 using RCS.Data.Entities;
 using RCS.Data.UnitOfWorks;
 
@@ -44,6 +45,23 @@ namespace RCS.Services.Services
             }
 
             await _unitOfWork.Commit();
+        }
+
+        public async Task<(int total, int totalDisplay, IList<Order> records)>
+        GetOrdersByPagingAsync(int pageIndex, int pageSize, string searchText, string orderby)
+        {
+            var results = await _unitOfWork
+                .Orders
+                .GetByPagingAsync(x => x.Name.Contains(searchText), orderby, pageIndex, pageSize);
+
+            var orders = new List<Order>();
+
+            foreach (var order in results.data)
+            {
+                orders.Add(order);
+            }
+
+            return (results.total, results.totalDisplay, orders);
         }
     }
 }

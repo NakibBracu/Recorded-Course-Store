@@ -1,6 +1,4 @@
 ﻿using Autofac;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using RCS.Data.Entities;
 using RCS.Services.Services;
 using System.ComponentModel.DataAnnotations;
 
@@ -29,7 +27,7 @@ namespace RCS.UI.Models
         [Required(ErrorMessage = "Please enter a country name")]
         public string Country { get; set; }
 
-        private  IOrderService _orderService;
+        private IOrderService _orderService;
 
 
         public PlaceOrderModel()
@@ -47,9 +45,9 @@ namespace RCS.UI.Models
             _orderService = scope.Resolve<IOrderService>();
         }
 
-        internal async Task addOrder(IList<Guid> courseIDs) 
+        internal async Task addOrder(IList<Guid> courseIDs)
         {
-          await _orderService.AddOrderAsync(Name,Line1,Line2,Line3,City,State,Zip,Country, courseIDs);
+            await _orderService.AddOrderAsync(Name, Line1, Line2, Line3, City, State, Zip, Country, courseIDs);
         }
 
 
