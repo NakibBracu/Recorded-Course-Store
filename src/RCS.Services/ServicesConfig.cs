@@ -18,6 +18,7 @@ namespace RCS.Services
             services.AddScoped<IOrderService, Orderservice>();
             services.AddScoped<ICartLineService, CartLineService>();
             services.AddScoped<ISeedService, SeedService>();
+            services.AddScoped<IUserService, UserService>();
             return services;
         }
     }

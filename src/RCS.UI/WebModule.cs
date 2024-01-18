@@ -22,6 +22,7 @@ namespace RCS.UI
             builder.RegisterType<RegisterModel>().AsSelf();
             builder.RegisterType<LoginModel>().AsSelf();
             builder.RegisterType<OrderListModel>().AsSelf();
+            builder.RegisterType<UserListModel>().AsSelf();
             builder.RegisterType<FileService>().As<IFileService>()
                .InstancePerLifetimeScope();
             base.Load(builder);
