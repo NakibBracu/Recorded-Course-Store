@@ -26,5 +26,31 @@ namespace RCS.Services.Services
             await _unitOfWork.CartLines.AddAsync(cartLine);
           
         }
+
+        public async Task DeleteCartLinesByCourseIdAsync(Guid courseId)
+        {
+            // Implement the logic to delete CartLines associated with the specified Course
+            // Example:
+
+            var cartLinesToDelete = await _unitOfWork.CartLines.FindAsync(x => x.CourseId.Id == courseId);
+
+            foreach (var cartLine in cartLinesToDelete)
+            {
+                await _unitOfWork.CartLines.DeleteAsync(cartLine);
+            }
+        }
+
+        //public async Task<IList<CartLine>> GetCartLinesAsync(Guid courseId)
+        //{
+        //    IList<CartLine> cartLines = new List<CartLine>();
+
+        //    foreach (var cartLine in await _unitOfWork.CartLines.FindAsync(x => x.CourseId.Id == courseId))
+        //    {
+        //        cartLines.Add(cartLine);
+        //    }
+
+        //    return cartLines;
+        //}
+
     }
 }

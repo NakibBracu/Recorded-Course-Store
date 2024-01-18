@@ -1,11 +1,8 @@
 ﻿using Autofac;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using RCS.Data.Entities;
 using RCS.Services.Services;
-using RCS.UI.Areas.Admin.Models;
 using RCS.UI.Models;
-using RCS.UI.Services;
 using RCS.UI.Utilities;
 using System.Data;
 
@@ -15,18 +12,16 @@ namespace RCS.UI.Controllers
     {
 
         private readonly ICourseService _courseService;
-        private readonly ICartService _cartService;
         private readonly IHttpContextAccessor _contextAccessor;
         ILifetimeScope _scope;
         ILogger<OrderController> _logger;
         public OrderController(
-            ICourseService courseService,ICartService cartService,
-            IHttpContextAccessor contextAccessor,ILifetimeScope scope,
+            ICourseService courseService,
+            IHttpContextAccessor contextAccessor, ILifetimeScope scope,
              ILogger<OrderController> logger
             )
         {
             _courseService = courseService;
-            _cartService = cartService;
             _contextAccessor = contextAccessor;
             _scope = scope;
             _logger = logger;
@@ -61,8 +56,6 @@ namespace RCS.UI.Controllers
 
                     // Store the updated list in session
                     _contextAccessor.HttpContext.Session.SetString("CourseIds", updatedCourseIdsString);
-
-                    _cartService.AddToCart(course, 1);
                 }
             }
 
@@ -70,9 +63,7 @@ namespace RCS.UI.Controllers
         }
         public IActionResult Index()
         {
-            // Display the cart content or other relevant information
-            var cartLines = _cartService.GetCartLines();
-            return View(cartLines);
+            return View();
         }
 
         [HttpPost]
@@ -112,7 +103,7 @@ namespace RCS.UI.Controllers
             return View(model);
         }
 
-        [HttpPost,ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> Checkout(PlaceOrderModel model)
         {
             model.ResolveDependency(_scope);
@@ -122,14 +113,19 @@ namespace RCS.UI.Controllers
                 {
                     var existingCourseIdsString = _contextAccessor.HttpContext.Session.GetString("CourseIds");
 
-                    var existingCourseIds = JsonConvert.DeserializeObject<List<Guid>>(existingCourseIdsString);
-                    await model.addOrder(existingCourseIds);
-                    TempData.Put<ResponseModel>("ResponseMessage", new ResponseModel
+                    if (!string.IsNullOrEmpty(existingCourseIdsString))
                     {
-                        Message = "Successfully added a new course.",
-                        Type = ResponseTypes.Success
-                    });
-                    return RedirectToAction("Index");
+                        var existingCourseIds = JsonConvert.DeserializeObject<List<Guid>>(existingCourseIdsString);
+
+                        // Call a method to add the order using existingCourseIds
+                        await model.addOrder(existingCourseIds);
+
+                        // Clear the entire cart after successful checkout
+                        _contextAccessor.HttpContext.Session.Remove("CourseIds");
+                        _contextAccessor.HttpContext.Session.SetInt32("TotalCourseInCart", 0);
+
+                        return RedirectToAction("Index", "Course");
+                    }
                 }
                 catch (DuplicateNameException ex)
                 {
@@ -146,14 +142,15 @@ namespace RCS.UI.Controllers
 
                     TempData.Put<ResponseModel>("ResponseMessage", new ResponseModel
                     {
-                        Message = "There was a problem in creating course.",
+                        Message = "There was a problem in creating the order.",
                         Type = ResponseTypes.Danger
                     });
                 }
             }
 
-            return View(model);
+            return RedirectToAction("Index", "Course");
         }
+
 
     }
 }

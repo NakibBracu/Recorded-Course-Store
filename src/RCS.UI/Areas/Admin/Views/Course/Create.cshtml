@@ -86,7 +86,7 @@
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fas fa-star"></i></span>
                                 <select asp-for="DifficultyLevel" class="form-control">
-                                    <option value="">-- Select Gender --</option>
+                                    <option value="">-- Select Difficulty --</option>
                                     @foreach (var item in Html.GetEnumSelectList<DifficultyLevel>())
                                     {
                                         <option value="@item.Value">@item.Text</option>

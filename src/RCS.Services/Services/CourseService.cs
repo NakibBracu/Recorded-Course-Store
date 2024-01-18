@@ -9,11 +9,13 @@ namespace RCS.Services.Services
     public class CourseService : ICourseService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly ICartLineService _cartLineService;
 
 
-        public CourseService(IUnitOfWork unitOfWork)
+        public CourseService(IUnitOfWork unitOfWork, ICartLineService cartLineService)
         {
             _unitOfWork = unitOfWork;
+            _cartLineService = cartLineService;
         }
 
         public async Task<IEnumerable<Course>> GetAll()
@@ -69,6 +71,8 @@ namespace RCS.Services.Services
                 throw new Exception("Course not found");
 
             await _unitOfWork.BeginTransaction();
+            // Delete related CartLines first
+            await _cartLineService.DeleteCartLinesByCourseIdAsync(id);
             await _unitOfWork.Courses.DeleteAsync(course);
             await _unitOfWork.Commit();
         }
