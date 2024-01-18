@@ -1,11 +1,11 @@
 using Autofac;
-using Autofac.Core;
 using Autofac.Extensions.DependencyInjection;
 using log4net;
 using RCS.Data.DataAccessServiceConfigurations;
 using RCS.Services;
 using RCS.Services.Services;
 using RCS.UI;
+using RCS.UI.Utilities.Email;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +19,8 @@ builder.Services.ConfigureDataAccessServices(connectionString)
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+
 
 //Enable Session
 builder.Services.AddSession();
@@ -39,12 +41,15 @@ builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
     containerBuilder.RegisterModule(new WebModule());
 });
 
+//Smtp config
+builder.Services.Configure<Smtp>(builder.Configuration.GetSection("Smtp"));
 
 var log = LogManager.GetLogger(typeof(Program));
 
 try
 {
     var app = builder.Build();
+    await app.Services.GetService<ISeedService>()!.DataSeed();
 
 
     // Configure the HTTP request pipeline.

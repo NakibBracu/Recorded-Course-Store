@@ -16,6 +16,7 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="6.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
     <PackageReference Include="NHibernate" Version="5.5.0" />
+    <PackageReference Include="System.CodeDom" Version="6.0.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
   </ItemGroup>
 
@@ -24,6 +25,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Utilities\Email\EmailTemplates\OrderConfirmationEmailTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>OrderConfirmationEmailTemplate.tt</DependentUpon>
+    </None>
     <None Include="wwwroot\images\contact.jpg" />
     <None Include="wwwroot\images\corporate-user-icon-1.png" />
     <None Include="wwwroot\images\corporate-user-icon.png" />
@@ -40,5 +46,33 @@
     <ProjectReference Include="..\RCS.Data\RCS.Data.csproj" />
     <ProjectReference Include="..\RCS.Services\RCS.Services.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+
+
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Utilities\Email\EmailTemplates\OrderConfirmationEmailTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>OrderConfirmationEmailTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Utilities\Email\EmailTemplates\TextTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TextTemplate.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Utilities\Email\EmailTemplates\OrderConfirmationEmailTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>OrderConfirmationEmailTemplate.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+
 
 </Project>
