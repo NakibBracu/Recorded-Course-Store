@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
@@ -131,5 +132,26 @@ namespace RCS.UI.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public async Task<IActionResult> LogoutAsync(string returnUrl = null)
+        {
+            await _signInManager.SignOutAsync();
+
+            if (returnUrl != null)
+            {
+                return LocalRedirect(returnUrl);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
+
     }
 }
