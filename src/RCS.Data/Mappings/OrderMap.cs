@@ -74,6 +74,11 @@ namespace RCS.Data.Mappings
                 m.NotNullable(true);
                 m.Column("Country");
             });
+            ManyToOne(x => x.User, m =>
+            {
+                m.Column("UserId"); 
+                m.Cascade(Cascade.Persist);
+            });
 
             Bag(x => x.Lines, colmap => { }, map => map.OneToMany());
         }

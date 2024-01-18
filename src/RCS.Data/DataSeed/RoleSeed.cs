@@ -13,8 +13,8 @@ namespace RCS.Data.DataSeed
                 new ApplicationRole
                 {
                     Id = Guid.Parse("24A79338-30A4-4827-94C9-BB84B615D4FE"),
-                    Name = "Nakib",
-                    NormalizedName = "NAKIB"
+                    Name = "Admin",
+                    NormalizedName = "ADMIN"
                 }
                 };
             }

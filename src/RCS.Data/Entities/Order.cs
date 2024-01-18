@@ -1,4 +1,6 @@
-﻿namespace RCS.Data.Entities
+﻿using RCS.Data.Identity.Entities;
+
+namespace RCS.Data.Entities
 {
     public class Order : IEntity<Guid>
     {
@@ -12,6 +14,8 @@
         public virtual string State { get; set; }
         public virtual string Zip { get; set; }
         public virtual string Country { get; set; }
+
+        public virtual ApplicationUser User { get; set; }
 
     }
 }

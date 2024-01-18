@@ -1,4 +1,6 @@
 ﻿using Autofac;
+using Microsoft.AspNetCore.Identity;
+using RCS.Data.Identity.Entities;
 using RCS.Services.Services;
 using System.ComponentModel.DataAnnotations;
 
@@ -28,6 +30,7 @@ namespace RCS.UI.Models
         public string Country { get; set; }
 
         private IOrderService _orderService;
+      
 
 
         public PlaceOrderModel()
@@ -45,9 +48,10 @@ namespace RCS.UI.Models
             _orderService = scope.Resolve<IOrderService>();
         }
 
-        internal async Task addOrder(IList<Guid> courseIDs)
+        internal async Task addOrder(IList<Guid> courseIDs,ApplicationUser currentUser)
         {
-            await _orderService.AddOrderAsync(Name, Line1, Line2, Line3, City, State, Zip, Country, courseIDs);
+            // Call AddOrderAsync with the ApplicationUser object
+            await _orderService.AddOrderAsync(Name, Line1, Line2, Line3, City, State, Zip, Country, courseIDs, currentUser);
         }
 
 

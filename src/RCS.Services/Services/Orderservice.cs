@@ -1,6 +1,7 @@
 ﻿
 using Mapster;
 using RCS.Data.Entities;
+using RCS.Data.Identity.Entities;
 using RCS.Data.UnitOfWorks;
 
 namespace RCS.Services.Services
@@ -19,7 +20,7 @@ namespace RCS.Services.Services
             _courseService = courseService;
         }
         public async Task AddOrderAsync(string name, string line1, string line2, string line3,
-            string city, string state, string zip, string country, IList<Guid> CourseIDs)
+            string city, string state, string zip, string country, IList<Guid> CourseIDs, ApplicationUser userId)
         {
             Order order = new Order()
             {
@@ -30,7 +31,9 @@ namespace RCS.Services.Services
                 City = city,
                 State = state,
                 Zip = zip,
-                Country = country
+                Country = country,
+                User = userId
+                
             };
 
             await _unitOfWork.BeginTransaction();

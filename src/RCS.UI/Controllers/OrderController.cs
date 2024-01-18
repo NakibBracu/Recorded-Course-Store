@@ -1,6 +1,8 @@
 ﻿using Autofac;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using RCS.Data.Identity.Entities;
 using RCS.Services.Services;
 using RCS.UI.Models;
 using RCS.UI.Utilities;
@@ -15,20 +17,26 @@ namespace RCS.UI.Controllers
         private readonly IHttpContextAccessor _contextAccessor;
         ILifetimeScope _scope;
         ILogger<OrderController> _logger;
+        private SignInManager<ApplicationUser> _signInManager;
+        private UserManager<ApplicationUser> _userManager;
         public OrderController(
             ICourseService courseService,
             IHttpContextAccessor contextAccessor, ILifetimeScope scope,
-             ILogger<OrderController> logger
+             ILogger<OrderController> logger, SignInManager<ApplicationUser> signInManager,
+             UserManager<ApplicationUser> userManager
+
             )
         {
             _courseService = courseService;
             _contextAccessor = contextAccessor;
             _scope = scope;
             _logger = logger;
+            _signInManager = signInManager;
+            _userManager = userManager;
         }
 
         public async Task<IActionResult> AddToCart(Guid courseId)
-        {
+        { 
             // Retrieve the course details using the courseId
             var course = await _courseService.GetCourseAsync(courseId);
 
@@ -117,8 +125,11 @@ namespace RCS.UI.Controllers
                     {
                         var existingCourseIds = JsonConvert.DeserializeObject<List<Guid>>(existingCourseIdsString);
 
+
+                        var CurrentUser = await _userManager.GetUserAsync(User);
+
                         // Call a method to add the order using existingCourseIds
-                        await model.addOrder(existingCourseIds);
+                        await model.addOrder(existingCourseIds, CurrentUser);
 
                         // Clear the entire cart after successful checkout
                         _contextAccessor.HttpContext.Session.Remove("CourseIds");
