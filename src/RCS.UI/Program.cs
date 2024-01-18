@@ -49,7 +49,7 @@ var log = LogManager.GetLogger(typeof(Program));
 try
 {
     var app = builder.Build();
-    await app.Services.GetService<ISeedService>()!.DataSeed();
+    //await app.Services.GetService<ISeedService>()!.DataSeed();
 
 
     // Configure the HTTP request pipeline.
