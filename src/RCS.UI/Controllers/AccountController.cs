@@ -133,7 +133,7 @@ namespace RCS.UI.Controllers
             return View(model);
         }
 
-        [HttpPost, ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken,Authorize]
         public async Task<IActionResult> LogoutAsync(string returnUrl = null)
         {
             await _signInManager.SignOutAsync();
