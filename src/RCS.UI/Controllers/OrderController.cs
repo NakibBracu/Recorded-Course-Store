@@ -143,7 +143,7 @@ namespace RCS.UI.Controllers
                         model.SendPurchaseRequestSuccessfulEmail(CurrentUser.UserName, CurrentUser.Email, _email.Subject, _email.Body);
 
 
-                        return RedirectToAction("Index", "Course");
+                        return View("successfulPurchase");
                     }
                 }
                 catch (DuplicateNameException ex)
