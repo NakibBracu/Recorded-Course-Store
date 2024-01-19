@@ -23,6 +23,19 @@ namespace RCS.Services.Services
             return await _unitOfWork.Courses.GetAllAsync();
         }
 
+        public async Task<IEnumerable<Course>> GetAll(IEnumerable<Guid> CoursIds)
+        {
+            var courses = new List<Course>();
+
+            foreach (var courseId in CoursIds)
+            {
+                var course = await _unitOfWork.Courses.GetSingleAsync(courseId);
+                courses.Add(course);
+            }
+
+            return courses;
+        }
+
         public async Task<(int total, int totalDisplay, IList<Course> records)>
         GetCoursesByPagingAsync(int pageIndex, int pageSize, string searchText, string orderby)
         {
@@ -101,5 +114,35 @@ namespace RCS.Services.Services
             await _unitOfWork.Courses.UpdateAsync(course);
             await _unitOfWork.Commit();
         }
+
+        public async Task<IEnumerable<Guid>> GetCourseIds(Guid userId)
+        {
+            if (userId == Guid.Empty)
+            {
+                throw new InvalidOperationException($"User with ID '{userId}' not found.");
+            }
+
+            var orders = await _unitOfWork.Orders.GetAllAsync();
+            var cartLines = await _unitOfWork.CartLines.GetAllAsync();
+
+            var courseIds = (
+                from order in orders
+                join cartline in cartLines on order.Id equals cartline.OrderId.Id
+                where order.User != null && order.User.Id == userId
+                select new
+                {
+                    Order = order,
+                    CartlineCourseId = cartline.CourseId.Id
+                }
+            ).ToList();
+
+            return courseIds
+                .Where(item => item.CartlineCourseId != null) // Check if CourseId is not null
+                .Select(item => item.CartlineCourseId)
+                .AsEnumerable();
+        }
+
+
+
     }
 }

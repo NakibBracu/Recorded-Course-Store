@@ -1,0 +1,59 @@
+﻿@model RCS.UI.Models.GeneralCourseListModel
+
+@section styles
+{
+
+    <style>
+        img {
+            width: 200px; /* You can set the dimensions to whatever you want */
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .responsive {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+}
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('.searchbox-input').on("keyup", function () {
+                // var value = $(this).val().toLowerCase();
+                var value = $('.searchbox-input').val().toLowerCase();
+                $(".card").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+
+    </script>
+
+}
+
+<div class="input-group mb-3">
+    <input type="text" class="form-control searchbox-input" placeholder="Search By Course Title" style="width: 900px;">
+</div>
+
+
+<div class="row">
+    @foreach (var course in Model.CourseList)
+    {
+        //<div class="row">
+        <div class="card col-3 m-3">
+            <img class="responsive" src=/CourseThumbnail/@course.ThumbnailImageName alt="Card image cap">
+            <h5 class="card-title">@course.Title</h5>
+            <div class="card-body">
+                <p class="card-text">@course.Description</p>
+            </div>
+            <h3 class="card-title">$@course.Price</h3>
+            <a asp-controller="Order" asp-action="AddToCart"
+               asp-route-courseId="@course.Id" class="btn btn-success btn-sm pull-right add-to-cart-btn">
+                Add To Cart
+            </a>
+
+        </div>
+
+    }
+</div>

@@ -29,5 +29,7 @@ namespace RCS.Data.Repositories
             Expression<Func<T, bool>> filter = null!, string orderBy = null!, int pageIndex = 1,
             int pageSize = 10, Expression<Func<T, object>>? objectSelector = null!,
             Expression<Func<T, bool>> selectorFilter = null!);
+
+   
     }
 }

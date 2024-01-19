@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using RCS.UI.Areas.Admin.Models;
+using RCS.UI.Areas.User.Models;
 using RCS.UI.Models;
 using RCS.UI.Services;
 
@@ -23,6 +24,7 @@ namespace RCS.UI
             builder.RegisterType<LoginModel>().AsSelf();
             builder.RegisterType<OrderListModel>().AsSelf();
             builder.RegisterType<UserListModel>().AsSelf();
+            builder.RegisterType<UserCourseListModel>().AsSelf();
             builder.RegisterType<FileService>().As<IFileService>()
                .InstancePerLifetimeScope();
             base.Load(builder);
