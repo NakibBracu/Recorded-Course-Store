@@ -19,6 +19,8 @@ namespace RCS.Services
             services.AddScoped<ICartLineService, CartLineService>();
             services.AddScoped<ISeedService, SeedService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IEmailMessageService, EmailMessageService>();
+            services.AddScoped<IEmailService, HtmlEmailService>();
             return services;
         }
     }

@@ -1,4 +1,4 @@
-﻿namespace RCS.UI.Utilities.Email
+﻿namespace RCS.Data.EmailUtilities
 {
     public class Smtp
     {

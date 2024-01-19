@@ -4,6 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>eb6d7eea-02b5-4b8d-a292-bcc0513b1d4a</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -26,11 +27,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Utilities\Email\EmailTemplates\OrderConfirmationEmailTemplate.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>OrderConfirmationEmailTemplate.tt</DependentUpon>
-    </None>
     <None Include="wwwroot\images\contact.jpg" />
     <None Include="wwwroot\images\corporate-user-icon-1.png" />
     <None Include="wwwroot\images\corporate-user-icon.png" />
@@ -52,26 +48,6 @@
 
 
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="Utilities\Email\EmailTemplates\OrderConfirmationEmailTemplate.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>OrderConfirmationEmailTemplate.tt</DependentUpon>
-    </Compile>
-    <Compile Update="Utilities\Email\EmailTemplates\TextTemplate.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>TextTemplate.tt</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="Utilities\Email\EmailTemplates\OrderConfirmationEmailTemplate.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>OrderConfirmationEmailTemplate.cs</LastGenOutput>
-    </None>
   </ItemGroup>
 
 

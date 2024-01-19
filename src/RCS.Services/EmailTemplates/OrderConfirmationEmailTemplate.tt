@@ -1,0 +1,17 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<!DOCTYPE html>
+<html lang="en">
+<body style="max-width: 600px; margin: 0 auto; padding: 20px; font-family: Arial, sans-serif;">
+<div style="text-align: center;">
+</div>
+    <div class="content" style="background-color: #ffffff; padding: 20px;">
+        <p><h3>Hi <#=Name#>,</h3></p>
+        <p>Your purchase is successful.</p>
+    </div>
+    <hr>
+</body>
+</html>

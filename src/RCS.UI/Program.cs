@@ -3,10 +3,10 @@ using Autofac.Extensions.DependencyInjection;
 using log4net;
 using Microsoft.AspNetCore.Identity;
 using RCS.Data.DataAccessServiceConfigurations;
+using RCS.Data.EmailUtilities;
 using RCS.Services;
 using RCS.Services.Services;
 using RCS.UI;
-using RCS.UI.Utilities.Email;
 
 var builder = WebApplication.CreateBuilder(args);
 

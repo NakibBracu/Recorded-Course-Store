@@ -3,11 +3,13 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Org.BouncyCastle.Asn1.Ocsp;
 using RCS.Data.Identity.Entities;
 using RCS.Services.Services;
 using RCS.UI.Models;
 using RCS.UI.Utilities;
 using System.Data;
+using static Org.BouncyCastle.Crypto.Engines.SM2Engine;
 
 namespace RCS.UI.Controllers
 {
@@ -136,6 +138,9 @@ namespace RCS.UI.Controllers
                         // Clear the entire cart after successful checkout
                         _contextAccessor.HttpContext.Session.Remove("CourseIds");
                         _contextAccessor.HttpContext.Session.SetInt32("TotalCourseInCart", 0);
+                        var _email = model.CreateEmail(CurrentUser.Email, CurrentUser.UserName);
+                        model.SendPurchaseRequestSuccessfulEmail(CurrentUser.UserName, CurrentUser.Email, _email.Subject, _email.Body);
+
 
                         return RedirectToAction("Index", "Course");
                     }
