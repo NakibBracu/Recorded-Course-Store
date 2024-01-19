@@ -48,6 +48,7 @@
                 <p class="card-text">@course.Description</p>
             </div>
             <h3 class="card-title">$@course.Price</h3>
+            <h4 class="card-title"><i>Difficulty Level:</i> <span class="text-success fw-bold">@course.DifficultyLevel</span></h4>
             <a asp-controller="Order" asp-action="AddToCart"
                asp-route-courseId="@course.Id" class="btn btn-success btn-sm pull-right add-to-cart-btn">
                 Add To Cart

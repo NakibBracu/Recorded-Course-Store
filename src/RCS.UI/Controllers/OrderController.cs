@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -10,6 +11,7 @@ using System.Data;
 
 namespace RCS.UI.Controllers
 {
+    [Authorize]
     public class OrderController : Controller
     {
 
