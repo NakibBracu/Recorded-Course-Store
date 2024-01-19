@@ -21,7 +21,7 @@ This is an online recorded course selling store with a 3-layer architecture cons
 14. **email get in mailtrap test server** ![15-successful-checkout-email-got-mailtrap](https://github.com/NakibBracu/Recorded-Course-Store/assets/77340620/9e8bfb02-df18-4279-a0b9-9fbd73f6abcd)
 15. **User Dashboard** ![16-user-can-view-the-course-he-buy](https://github.com/NakibBracu/Recorded-Course-Store/assets/77340620/3fef4db4-0dde-496d-a37e-70abaa17a3a7)
 16. **Searching works like course catalog** ![17-here-also-searching-works!](https://github.com/NakibBracu/Recorded-Course-Store/assets/77340620/b4cb1439-50e6-449d-9edd-6467da591fda)
-17. **admin section [only admin can see after looged in]** ![18-admin-section](https://github.com/NakibBracu/Recorded-Course-Store/assets/77340620/e69d9a91-b251-43e3-99e1-bc197e374392)
+17. **admin section [only admin can see after logged in]** ![18-admin-section](https://github.com/NakibBracu/Recorded-Course-Store/assets/77340620/e69d9a91-b251-43e3-99e1-bc197e374392)
 18. **admin dashboard-[course]**  ![19-admin-dasboard-course-index](https://github.com/NakibBracu/Recorded-Course-Store/assets/77340620/5fb4b111-3951-4ead-84b4-351e65f0759e)
 19. **admin dashboard-[order]** ![20-admin-dasboard-order-index](https://github.com/NakibBracu/Recorded-Course-Store/assets/77340620/2885aa80-4265-4562-b3d3-55fd025f89a7)
 20. **admin dashboard-[user]** ![21-admin-dashboard-user-index](https://github.com/NakibBracu/Recorded-Course-Store/assets/77340620/412beff2-3f3a-4391-9576-4d897ae9085d)
