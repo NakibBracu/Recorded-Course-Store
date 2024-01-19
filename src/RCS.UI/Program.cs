@@ -1,7 +1,6 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using log4net;
-using Microsoft.AspNetCore.Identity;
 using RCS.Data.DataAccessServiceConfigurations;
 using RCS.Data.EmailUtilities;
 using RCS.Data.Identity.Extensions;
