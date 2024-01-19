@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RCS.UI.Areas.Admin.Models;
 using RCS.UI.Models;
@@ -7,7 +8,7 @@ using System.Data;
 
 namespace RCS.UI.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+    [Area("Admin"),Authorize(Roles = "Admin")]
     public class CourseController : Controller
     {
         ILifetimeScope _scope;

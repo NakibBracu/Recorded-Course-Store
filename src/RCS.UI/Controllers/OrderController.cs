@@ -13,7 +13,7 @@ using static Org.BouncyCastle.Crypto.Engines.SM2Engine;
 
 namespace RCS.UI.Controllers
 {
-    [Authorize]
+   
     public class OrderController : Controller
     {
 
@@ -108,13 +108,14 @@ namespace RCS.UI.Controllers
         }
 
 
-
+        [Authorize]
         public async Task<IActionResult> Checkout()
         {
             var model = _scope.Resolve<PlaceOrderModel>();
             return View(model);
         }
 
+        [Authorize]
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> Checkout(PlaceOrderModel model)
         {
