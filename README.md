@@ -3,6 +3,11 @@
 # Recorded-Course-Store
 This is an online recorded course selling store with a 3-layer architecture consisting of the **UI layer**, **Service layer**, and **Data layer**. The platform uses **NHibernate** as its Object-Relational Mapping (ORM) tool and **SQL Server** as its database server. Users can easily access the courses they need and learn at their own pace.
 **Identity framework** is also configured here.
+
+# database Diagram
+
+![database diagram](https://github.com/NakibBracu/Recorded-Course-Store/assets/77340620/d2f4009d-e81f-4168-b5ff-be35b3220166)
+
 # ScreenShots of Various Features of My Application
 # User Section #
 1. **3 layers** ![1-layers](https://github.com/NakibBracu/Recorded-Course-Store/assets/77340620/d9a27b38-41bb-4fdf-8fd8-3ac1d6e05230)
