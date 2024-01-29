@@ -1,0 +1,55 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>eb6d7eea-02b5-4b8d-a292-bcc0513b1d4a</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\select-image.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="6.0.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="6.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
+    <PackageReference Include="NHibernate" Version="5.5.0" />
+    <PackageReference Include="System.CodeDom" Version="6.0.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\User\Data\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\images\contact.jpg" />
+    <None Include="wwwroot\images\corporate-user-icon-1.png" />
+    <None Include="wwwroot\images\corporate-user-icon.png" />
+    <None Include="wwwroot\images\HomeBannerImage.png" />
+    <None Include="wwwroot\images\ma.jpg" />
+    <None Include="wwwroot\images\profileImages\24fc78b6-8f28-468f-9476-e21e4cfaca6b.png" />
+    <None Include="wwwroot\images\profileImages\6d0bcabd-744c-4bdd-8e69-8f30088c984d.png" />
+    <None Include="wwwroot\images\profileImages\e3dbefee-4a51-4010-9bc8-0b0f7ff4492b.png" />
+    <None Include="wwwroot\images\select-image.png" />
+    <None Include="wwwroot\select-image.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RCS.Data\RCS.Data.csproj" />
+    <ProjectReference Include="..\RCS.Services\RCS.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+
+
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+
+
+</Project>

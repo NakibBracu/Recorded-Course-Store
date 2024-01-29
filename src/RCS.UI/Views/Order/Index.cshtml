@@ -1,0 +1,106 @@
+﻿@using Newtonsoft.Json
+@using RCS.Services.Services
+@inject IHttpContextAccessor _contextAccessor;
+@inject ICourseService _courseService;
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Cart Item List</h1>
+
+@{
+    var existingCourseIdsString = _contextAccessor.HttpContext.Session.GetString("CourseIds");
+
+    IList<Guid> existingCourseIds = new List<Guid>();
+
+    if (!string.IsNullOrEmpty(existingCourseIdsString))
+    {
+        existingCourseIds = JsonConvert.DeserializeObject<IList<Guid>>(existingCourseIdsString);
+    }
+    _contextAccessor.HttpContext.Session.SetInt32("TotalCourseInCart",existingCourseIds.Count);
+}
+
+@if (existingCourseIds.Any())
+{
+    <div class="table-responsive">
+        <table id="courseTable" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Course Title</th>
+                    <th>Course Price</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+               
+                @foreach (var courseId in existingCourseIds)
+                {
+                    var course = await _courseService.GetCourseAsync(courseId);
+                    if (course != null)
+                    {
+                        
+                        <tr data-course-id="@courseId">
+                            <td>@course.Title</td>
+                            <td class="coursePrice">@course.Price</td>
+                            <td>
+                                <button class="btn btn-danger" onclick="removeCourse('@courseId')">Remove</button>
+                            </td>
+                        </tr>
+                    }
+                }
+
+            </tbody>
+        </table>
+    </div>
+
+    <div class="text-right">
+        <p>Total Price: $<span id="totalPrice">0</span></p>
+        <a href="/Course/Index" class="btn btn-success">Continue Shopping</a>
+        <form asp-controller="Order" asp-action="Checkout" method="get" id="checkoutForm">
+            <button type="submit" class="btn btn-primary">Checkout</button>
+        </form>
+    </div>
+
+    <script>
+       
+        document.addEventListener('DOMContentLoaded', function () {
+            calculateTotalPrice();
+           
+        });
+
+        function removeCourse(courseId) {
+            var courseRow = document.querySelector('[data-course-id="' + courseId + '"]');
+            if (courseRow) {
+                // Send AJAX request to the server to remove the course ID from the session
+                fetch('/Order/RemoveCourse?courseId=' + courseId, { method: 'POST' })
+                    .then(response => {
+                        if (response.ok) {
+                            courseRow.remove();
+                            calculateTotalPrice();
+                            location.reload();
+                        }
+                    });
+            }
+        }
+
+        function calculateTotalPrice() {
+            var coursePrices = document.querySelectorAll('.coursePrice');
+            var totalPrice = 0;
+
+            coursePrices.forEach(function (priceElement) {
+                var price = parseFloat(priceElement.innerText);
+                totalPrice += isNaN(price) ? 0 : price;
+            });
+
+            document.getElementById('totalPrice').innerText = totalPrice.toFixed(2);
+        }
+    </script>
+}
+else
+{
+    <p>No courses in the cart.</p>
+}
+
+
+
+
